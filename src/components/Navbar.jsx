@@ -11,12 +11,17 @@ function Navbar({ user, setUser }) {
   return (
     <div>
       {/* Routes seen by everyone */}
-      <Link className='nav-item' to='/'>Homepage</Link>
+      <Link className='nav-item' to='/'>HomePage</Link>
+
+      <Link className='nav-item' to='/games'>Games</Link>
 
       {user ? (
         // Links for protected routes only for logged in users
         <>
-        <Link className='nav-item' to='/dashboard'>Dashboard</Link>
+
+        {user.isOwner && (
+            <Link className='nav-item' to='/games/new'>Add Game</Link>
+          )}
 
         <span className='nav-item'>{user.username}</span>
        
