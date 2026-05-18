@@ -19,7 +19,7 @@ function Navbar({ user, setUser }) {
         // Links for protected routes only for logged in users
         <>
 
-        {user.isOwner && (
+        {user.role === 'owner' && (
             <Link className='nav-item' to='/games/new'>Add Game</Link>
           )}
 
