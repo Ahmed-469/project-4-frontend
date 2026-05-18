@@ -33,6 +33,9 @@ function App() {
         <Route path="/games" element={<GamesListPage />} />
         <Route path="/sign-up" element={!user ? <SignUp /> : <Navigate to='/'/>} />
         <Route path="/sign-in" element={!user ? <SignIn setUser={setUser} /> : <Navigate to='/'/>} />
+        <Route path="/games/new" element={<GameFormPage user={user} />} />
+        <Route path="/games/:gameId" element={<GameDetailsPage user={user} />} />
+        <Route path="/games/:gameId/edit" element={<GameFormPage user={user} />} />
       </Routes>
     </div>
   );

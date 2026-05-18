@@ -1,4 +1,9 @@
-function ReviewList({ reviews, user, handleDeleteReview }) {
+function ReviewList({ reviews, currentUserId, onEdit, onDelete }) {
+  const renderStars = (rating) => {
+    const filledStars = '⭐'.repeat(Math.max(0, Math.min(5, rating)));
+    const emptyStars = '☆'.repeat(5 - Math.max(0, Math.min(5, rating)));
+    return `${filledStars}${emptyStars}`;
+  };
 
   return (
     <div>
@@ -6,28 +11,18 @@ function ReviewList({ reviews, user, handleDeleteReview }) {
 
       {reviews.map((review) => (
         <div key={review._id} className='review-card'>
-
           <h4>{review.author.username}</h4>
-
           <p>{review.text}</p>
+          <p>{renderStars(review.starRating)}</p>
 
-          <p>{review.starRating}</p>
-
-          {user && user._id === review.author._id && (
+          {currentUserId === review.author._id && (
             <div>
-
-              <button>Edit Review</button>
-
-              <button onClick={() => handleDeleteReview(review._id)}>
-                Delete Review
-              </button>
-
+              <button onClick={() => onEdit(review._id)}>Edit Review</button>
+              <button onClick={() => onDelete(review._id)}>Delete Review</button>
             </div>
           )}
-
         </div>
       ))}
-
     </div>
   )
 }
