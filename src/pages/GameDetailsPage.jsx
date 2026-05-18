@@ -37,6 +37,14 @@ function GameDetailsPage({ user }) {
     return (total / game.reviews.length).toFixed(1);
   };
 
+  const renderAverageStars = () => {
+    if (!game || game.reviews.length === 0) return 'No ratings yet';
+    const average = Math.round(Number(calculateAverageRating()));
+    const filledStars = '⭐'.repeat(Math.max(0, Math.min(5, average)));
+    const emptyStars = '☆'.repeat(5 - Math.max(0, Math.min(5, average)));
+    return `${filledStars}${emptyStars}`;
+  };
+
   const handleDeleteGame = async () => {
     if (!window.confirm('Are you sure you want to delete this game?')) return;
 
@@ -115,7 +123,8 @@ function GameDetailsPage({ user }) {
   if (error) return <div>Error: {error}</div>;
   if (!game) return <div>Game not found</div>;
 
-  const isOwner = user && user._id === game.author._id;
+  const authorId = game.author?._id ?? game.author;
+  const isOwner = user && user.role === 'owner' && user._id === authorId;
 
   return (
     <div className="game-details">
@@ -127,13 +136,10 @@ function GameDetailsPage({ user }) {
         {/* Rating */}
         <div className="rating">
           <p>
-            Average Rating: <strong>⭐ {calculateAverageRating()}</strong> (
+            Average Rating: <strong>{renderAverageStars()}</strong> (
             {game.reviews.length} reviews)
           </p>
         </div>
-
-        {/* Author */}
-        <p className="author">By: <strong>{game.author.username}</strong></p>
 
         {/* Description */}
         <div className="description">
