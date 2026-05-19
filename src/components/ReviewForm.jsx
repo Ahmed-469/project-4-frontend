@@ -29,9 +29,9 @@ function ReviewForm({ review, onSubmit, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="text">Your Review:</label>
+    <form onSubmit={handleSubmit} className="review-form">
+      <div className="form-row">
+        <label htmlFor="text">Your review</label>
         <textarea
           id="text"
           name="text"
@@ -39,32 +39,31 @@ function ReviewForm({ review, onSubmit, onCancel }) {
           onChange={handleChange}
           placeholder="Share your thoughts about this game..."
           required
+          rows={5}
         />
       </div>
 
-      <div>
-        <label htmlFor="starRating">Rating:</label>
-        <select
-          id="starRating"
-          name="starRating"
-          value={formData.starRating}
-          onChange={handleChange}
-        >
-          <option value={1}>⭐  </option>
-          <option value={2}>⭐⭐ </option>
-          <option value={3}>⭐⭐⭐ </option>
-          <option value={4}>⭐⭐⭐⭐ </option>
-          <option value={5}>⭐⭐⭐⭐⭐ </option>
-        </select>
-      </div>
+      <div className="form-row" style={{display:'flex',gap:12,alignItems:'center'}}>
+        <div style={{flex:'0 0 180px'}}>
+          <label htmlFor="starRating">Rating</label>
+          <select
+            id="starRating"
+            name="starRating"
+            value={formData.starRating}
+            onChange={handleChange}
+          >
+            <option value={1}>1 — ⭐</option>
+            <option value={2}>2 — ⭐⭐</option>
+            <option value={3}>3 — ⭐⭐⭐</option>
+            <option value={4}>4 — ⭐⭐⭐⭐</option>
+            <option value={5}>5 — ⭐⭐⭐⭐⭐</option>
+          </select>
+        </div>
 
-      <div>
-        <button type="submit">
-          {review ? 'Update Review' : 'Submit Review'}
-        </button>
-        <button type="button" onClick={onCancel}>
-          Cancel
-        </button>
+        <div style={{marginLeft:'auto',display:'flex',gap:8}}>
+          <button type="submit" className="btn">{review ? 'Update' : 'Submit'}</button>
+          <button type="button" onClick={onCancel} className="btn ghost">Cancel</button>
+        </div>
       </div>
     </form>
   );

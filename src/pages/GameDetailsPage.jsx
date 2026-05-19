@@ -152,11 +152,10 @@ function GameDetailsPage({ user }) {
           <iframe
             src={game.gameUrl}
             title={game.title}
-            width="100%"
-            height="600px"
+            className="game-iframe"
             frameBorder="0"
             allowFullScreen
-          ></iframe>
+          />
         </div>
 
         {/* Owner Actions */}
@@ -176,24 +175,36 @@ function GameDetailsPage({ user }) {
       <section className="reviews-section">
         <h2>Reviews</h2>
 
-        {user ? (
-          <ReviewForm
-            review={editingReviewId ? game.reviews.find(r => r._id === editingReviewId) : null}
-            onSubmit={handleReviewSubmit}
-            onCancel={() => setEditingReviewId(null)}
-          />
-        ) : (
-          <p>
-            <a href="/sign-in">Sign in</a> to leave a review
-          </p>
-        )}
+        <div className="reviews-grid">
+          <div className="review-box card">
+            {user ? (
+              <>
+                <h3 className="box-title">Leave a review</h3>
+                <ReviewForm
+                  review={editingReviewId ? game.reviews.find(r => r._id === editingReviewId) : null}
+                  onSubmit={handleReviewSubmit}
+                  onCancel={() => setEditingReviewId(null)}
+                />
+              </>
+            ) : (
+              <div className="signin-prompt">
+                <p>
+                  <a href="/sign-in">Sign in</a> to leave a review
+                </p>
+              </div>
+            )}
+          </div>
 
-        <ReviewList
-          reviews={game.reviews}
-          currentUserId={user?._id}
-          onEdit={setEditingReviewId}
-          onDelete={handleReviewDelete}
-        />
+          <div className="reviews-list-box card">
+            <h3 className="box-title">All Reviews ({game.reviews.length})</h3>
+            <ReviewList
+              reviews={game.reviews}
+              currentUserId={user?._id}
+              onEdit={setEditingReviewId}
+              onDelete={handleReviewDelete}
+            />
+          </div>
+        </div>
       </section>
     </div>
   );
