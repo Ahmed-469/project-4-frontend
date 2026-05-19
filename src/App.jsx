@@ -6,7 +6,6 @@ import SignIn from './pages/SignIn';
 import GamesListPage from './pages/GamesListPage';
 import GameDetailsPage from './pages/GameDetailsPage';
 import GameFormPage from './pages/GameFormPage';
-import FavoriteGamesPage from './pages/FavoriteGamesPage';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -32,11 +31,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/games" element={<GamesListPage />} />
-        <Route path="/favorites" element={<FavoriteGamesPage />} />
         <Route path="/sign-up" element={!user ? <SignUp /> : <Navigate to='/'/>} />
         <Route path="/sign-in" element={!user ? <SignIn setUser={setUser} /> : <Navigate to='/'/>} />
         <Route path="/games/new" element={<GameFormPage user={user} />} />
-        <Route path="/games/:gameId" element={<GameDetailsPage user={user} />} />
+        <Route path="/games/:gameId" element={user ? <GameDetailsPage user={user} /> : <Navigate to='/sign-in' />} />
         <Route path="/games/:gameId/edit" element={<GameFormPage user={user} />} />
       </Routes>
     </div>
