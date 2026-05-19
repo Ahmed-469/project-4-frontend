@@ -14,8 +14,6 @@ function Navbar({ user, setUser }) {
       <Link className='nav-item' to='/'>HomePage</Link>
 
       <Link className='nav-item' to='/games'>Games</Link>
-      
-      <Link className='nav-item' to='/favorites'>Favorites</Link>
 
       {user ? (
         // Links for protected routes only for logged in users
