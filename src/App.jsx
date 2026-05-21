@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './App.css'
 import { Routes, Route, Navigate } from 'react-router';
 import Homepage from './pages/Homepage';
 import SignUp from './pages/Signup';
